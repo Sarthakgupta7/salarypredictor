@@ -1,128 +1,79 @@
-// ================= LOAD DATA =================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Salary Insights</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-const data = JSON.parse(localStorage.getItem("salaryInsights"));
-const userInput = JSON.parse(localStorage.getItem("userInput"));
+<!-- Global Theme Toggle -->
+<button id="themeToggle" class="theme-toggle">🌙</button>
 
-if (!data || !userInput) {
-  alert("No salary data found. Please predict salary first.");
-  window.location.href = "predict.html";
-}
+<section class="page-wrapper">
 
-// ================= THEME =================
+  <div class="container glass insights fade-in dashboard">
 
-const themeToggle = document.getElementById("themeToggle");
+    <!-- Page Heading -->
+    <h1 class="page-title">📊 Salary Insights</h1>
+    <p class="page-subtitle">
+      Personalized salary prediction and career recommendations
+    </p>
 
-if (localStorage.getItem("theme") === "dark") {
-  document.body.classList.add("dark");
-  themeToggle.textContent = "☀";
-}
+    <!-- DASHBOARD GRID -->
+    <div class="dashboard-grid">
 
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  const dark = document.body.classList.contains("dark");
-  themeToggle.textContent = dark ? "☀" : "🌙";
-  localStorage.setItem("theme", dark ? "dark" : "light");
-});
+      <!-- LEFT PANEL : INSIGHTS -->
+      <div class="left-panel">
 
-// ================= SALARY DISPLAY =================
+        <!-- Salary Card -->
+        <div class="salary-card">
+          <h3>Estimated Annual Salary</h3>
+          <p id="salaryValue">₹ —</p>
+          <span id="salaryRange">Range: —</span>
+        </div>
 
-document.getElementById("salaryValue").innerText =
-  `₹${data.monthlySalary.toLocaleString()} / month`;
+        <!-- Suggestions -->
+        <div id="suggestions" class="suggestions">
+          <!-- Auto-filled by insights.js -->
+        </div>
 
-document.getElementById("salaryRange").innerText =
-  `₹${Math.round(data.yearlySalary * 0.9).toLocaleString()} – ₹${Math.round(
-    data.yearlySalary * 1.1
-  ).toLocaleString()} / year`;
+        <!-- Back Button -->
+        <button class="btn-secondary" onclick="goBack()">
+          ← Edit Details
+        </button>
 
-// ================= SUGGESTIONS =================
+      </div>
 
-const tips = [];
+      <!-- RIGHT PANEL : CHARTS -->
+      <div class="right-panel">
 
-if (userInput.education === "Bachelor's") {
-  tips.push("🎓 Consider pursuing a Master's degree to unlock higher salary bands.");
-}
+        <!-- Breakdown Chart -->
+        <div class="chart-card">
+          <h4>Salary Breakdown</h4>
+          <canvas id="breakdownChart"></canvas>
+        </div>
 
-if (userInput.level === "Junior") {
-  tips.push("📈 Upskill and gain experience to move into Mid or Senior roles.");
-}
+        <!-- Location Chart -->
+        <div class="chart-card">
+          <h4>Salary by Location</h4>
+          <canvas id="locationChart"></canvas>
+        </div>
 
-if (userInput.experience < 3) {
-  tips.push("🧠 More hands-on experience can significantly boost your salary.");
-}
+      </div>
 
-if (userInput.location === "India") {
-  tips.push("🌍 Explore remote or international roles for better compensation.");
-}
+    </div>
+    <!-- END DASHBOARD GRID -->
 
-if (tips.length === 0) {
-  tips.push("✅ You are on a strong career path. Keep growing your skills!");
-}
+  </div>
 
-document.getElementById("suggestions").innerHTML = `
-  <h3>💡 How to Increase Your Salary</h3>
-  <ul>${tips.map(t => `<li>${t}</li>`).join("")}</ul>
-`;
+</section>
 
-// ================= SALARY BREAKDOWN CHART (MONTHLY) =================
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-new Chart(document.getElementById("breakdownChart"), {
-  type: "bar",
-  data: {
-    labels: [
-      "Base (Monthly)",
-      "Experience (Monthly)",
-      "Education (Monthly)",
-      "Final (Monthly)"
-    ],
-    datasets: [{
-      data: [
-        data.baseMonthly,
-        data.experienceMonthly,
-        data.educationMonthly,
-        data.monthlySalary
-      ],
-      backgroundColor: [
-        "#60a5fa",
-        "#34d399",
-        "#fbbf24",
-        "#6366f1"
-      ]
-    }]
-  },
-  options: {
-    plugins: { legend: { display: false } },
-    scales: { y: { beginAtZero: true } }
-  }
-});
+<!-- Insights Logic -->
+<script src="insights.js"></script>
 
-// ================= LOCATION COMPARISON (YEARLY) =================
-
-const locationMultiplier = {
-  India: 1,
-  USA: 2.5,
-  Europe: 2,
-  Remote: 1.8
-};
-
-new Chart(document.getElementById("locationChart"), {
-  type: "line",
-  data: {
-    labels: Object.keys(locationMultiplier),
-    datasets: [{
-      label: "Estimated Yearly Salary (₹)",
-      data: Object.values(locationMultiplier).map(
-        m => Math.round(data.yearlySalary * m)
-      ),
-      borderColor: "#3b82f6",
-      backgroundColor: "rgba(59,130,246,0.15)",
-      tension: 0.4,
-      fill: true
-    }]
-  }
-});
-
-// ================= NAV =================
-
-function goBack() {
-  window.location.href = "predict.html";
-}
+</body>
+</html>
