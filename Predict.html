@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Enter Details | Salary Predictor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Global Theme Toggle -->
+<button id="themeToggle" class="theme-toggle">🌙</button>
+
+<section class="page-wrapper">
+
+  <div class="container glass fade-in">
+
+    <h1 class="page-title">📋 Enter Your Details</h1>
+    <p class="page-subtitle">
+      Fill in the information below to get personalized salary insights
+    </p>
+
+    <!-- Age -->
+    <label>Age</label>
+    <input type="number" id="age" value="30" min="18" max="65">
+
+    <!-- Experience -->
+    <label>Years of Experience</label>
+    <input type="number" id="experience" value="5" min="0" max="40">
+
+    <!-- Gender -->
+    <label>Gender</label>
+    <select id="gender">
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+
+    <!-- Education -->
+    <label>Education Level</label>
+    <select id="education">
+      <option>Bachelor's</option>
+      <option>Master's</option>
+      <option>PhD</option>
+    </select>
+
+    <!-- Job Search -->
+    <label>Job Title</label>
+    <input
+      type="text"
+      id="jobSearch"
+      placeholder="Search job role..."
+    />
+    <select id="job"></select>
+
+    <!-- Job Level -->
+    <label>Job Level</label>
+    <select id="level">
+      <option>Junior</option>
+      <option>Mid</option>
+      <option>Senior</option>
+      <option>Lead</option>
+    </select>
+
+    <!-- Location -->
+    <label>Work Location</label>
+    <select id="location">
+      <option>India</option>
+      <option>USA</option>
+      <option>Europe</option>
+      <option>Remote</option>
+    </select>
+
+    <!-- CTA -->
+    <button class="btn-primary" onclick="handlePredict()">
+      Predict Salary →
+    </button>
+
+  </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Employee Salary Prediction</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Global Theme Toggle -->
+<button id="themeToggle" class="theme-toggle">🌙</button>
+
+<section class="hero">
+
+  <div class="hero-card glass fade-in">
+    <h1>💼 Employee Salary Prediction</h1>
+
+    <p class="subtitle">
+      Get instant salary insights based on role, experience, skills & location
+    </p>
+
+    <div class="features">
+      <span>📊 Smart Salary Insights</span>
+      <span>🌍 Location-Based Comparison</span>
+      <span>💡 Career Growth Suggestions</span>
+    </div>
+
+    <a href="predict.html" class="btn-primary">
+      Predict My Salary →
+    </a>
+  </div>
+
+</section>
+
+<script>
+  const themeToggle = document.getElementById("themeToggle");
+
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+    themeToggle.textContent = "☀";
+  }
+
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    const isDark = document.body.classList.contains("dark");
+    themeToggle.textContent = isDark ? "☀" : "🌙";
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  });
+</script>
+
+</body>
+</html>

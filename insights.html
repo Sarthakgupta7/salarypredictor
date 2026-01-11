@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Salary Insights</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Global Theme Toggle -->
+<button id="themeToggle" class="theme-toggle">🌙</button>
+
+<section class="page-wrapper">
+
+  <div class="container glass insights fade-in dashboard">
+
+    <!-- Page Heading -->
+    <h1 class="page-title">📊 Salary Insights</h1>
+    <p class="page-subtitle">
+      Personalized salary prediction and career recommendations
+    </p>
+
+    <!-- DASHBOARD GRID -->
+    <div class="dashboard-grid">
+
+      <!-- LEFT PANEL : INSIGHTS -->
+      <div class="left-panel">
+
+        <!-- Salary Card -->
+        <div class="salary-card">
+          <h3>Estimated Annual Salary</h3>
+          <p id="salaryValue">₹ —</p>
+          <span id="salaryRange">Range: —</span>
+        </div>
+
+        <!-- Suggestions -->
+        <div id="suggestions" class="suggestions">
+          <!-- Auto-filled by insights.js -->
+        </div>
+
+        <!-- Back Button -->
+        <button class="btn-secondary" onclick="goBack()">
+          ← Edit Details
+        </button>
+
+      </div>
+
+      <!-- RIGHT PANEL : CHARTS -->
+      <div class="right-panel">
+
+        <!-- Breakdown Chart -->
+        <div class="chart-card">
+          <h4>Salary Breakdown</h4>
+          <canvas id="breakdownChart"></canvas>
+        </div>
+
+        <!-- Location Chart -->
+        <div class="chart-card">
+          <h4>Salary by Location</h4>
+          <canvas id="locationChart"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- END DASHBOARD GRID -->
+
+  </div>
+
+</section>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Insights Logic -->
+<script src="insights.js"></script>
+
+</body>
+</html>
