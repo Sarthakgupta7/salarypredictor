@@ -145,34 +145,46 @@ function handlePredict() {
   const level = document.getElementById("level").value;
   const location = document.getElementById("location").value;
 
-  let salary = 30000;
+  // ✅ MONTHLY salary calculation
+  let monthlySalary = 30000;
+  monthlySalary += experience * 4500;
 
-  salary += experience * 4500;
-  if (education === "Master's") salary += 12000;
-  if (education === "PhD") salary += 22000;
+  if (education === "Master's") monthlySalary += 12000;
+  if (education === "PhD") monthlySalary += 22000;
 
   const category = getCategoryByJob(job);
-  salary *= categoryMultiplier[category];
-  salary *= levelMultiplier[level];
-  salary *= locationMultiplier[location];
+  monthlySalary *= categoryMultiplier[category];
+  monthlySalary *= levelMultiplier[level];
+  monthlySalary *= locationMultiplier[location];
 
-  if (age > 40) salary *= 1.05;
+  if (age > 40) monthlySalary *= 1.05;
+
+  // ✅ YEARLY salary
+  const yearlySalary = monthlySalary * 12;
 
   // Save user input
-  localStorage.setItem("userInput", JSON.stringify({
-    age, experience, education, job, level, location
-  }));
+  localStorage.setItem(
+    "userInput",
+    JSON.stringify({ age, experience, education, job, level, location })
+  );
 
   // Save salary data
-  localStorage.setItem("salaryInsights", JSON.stringify({
-    base: 30000,
-    experience: experience * 4500,
-    education:
-      education === "PhD" ? 22000 :
-      education === "Master's" ? 12000 : 0,
-    finalSalary: Math.round(salary)
-  }));
+  localStorage.setItem(
+    "salaryInsights",
+    JSON.stringify({
+      baseMonthly: 30000,
+      experienceMonthly: experience * 4500,
+      educationMonthly:
+        education === "PhD"
+          ? 22000
+          : education === "Master's"
+          ? 12000
+          : 0,
+      monthlySalary: Math.round(monthlySalary),
+      yearlySalary: Math.round(yearlySalary),
+    })
+  );
 
-  // Redirect
+  // Redirect to insights page
   window.location.href = "insights.html";
 }
